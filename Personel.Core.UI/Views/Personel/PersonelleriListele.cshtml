@@ -1,0 +1,28 @@
+﻿@using Personel.Core.UI.ViewModels
+@{
+}
+@model IEnumerable<Personel.Core.UI.Context.Personel>
+
+<h1>Personel Listesi</h1>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name </th>
+            <th>Surname</th>
+            <th>Birthdate</th>
+            <th>Salary</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var personel in Model)
+        {
+        <tr>
+            <td>@personel.Name</td>
+            <td>@personel.Surname</td>
+            <td>@personel.Birthdate.Value.ToShortDateString()</td>
+            <td>@personel.Salary  TL</td>
+        </tr>
+        }
+    </tbody>
+</table>

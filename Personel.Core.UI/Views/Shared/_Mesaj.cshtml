@@ -1,0 +1,22 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Personel.Core.UI.ViewModels.MesajViewModel
+
+@if (Model.Status)
+{
+    <div class="alert alert-success">
+        @Model.Mesaj  <a href="@Model.Url"> @Model.LinkText </a>
+    </div>
+}
+else
+{
+    <div class="alert alert-danger">
+        @Model.Mesaj  <a href="@Model.Url"> @Model.LinkText </a>
+    </div>
+}
+
+
+

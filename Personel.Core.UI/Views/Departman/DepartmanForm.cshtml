@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Personel.Core.UI.ViewModels.DepartmanModel
+
+
+@{
+    ViewBag.Title = "Yeni";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="mesaj"></div>
+
+@using (Html.BeginForm("Kaydet", "Departman", FormMethod.Post, new { @class = "form-control", id = "atarabasi" }))
+{
+    @Html.HiddenFor(m => m.Idm)  
+    @Html.AntiForgeryToken()   
+    <div class="form-group">
+
+        @Html.ValidationMessageFor(m => m.Isim)
+        @Html.LabelFor(m => m.Isim)
+        @Html.TextBoxFor(m => m.Isim, new { @class = "form-control" })
+
+    </div>
+    <div class="clearfix" style="margin-top:10px"></div>    
+    <button type="submit" class="btn btn-success">Kaydet</button>
+}
+
+
+
+@section Scripts{
+<script>
+    $('#atarabasi').on("submit",function(e){
+        e.preventDefault();                                                                    
+        var that = $(this);                   
+        var data = that.serialize();          
+        var url = that.attr("action");        
+
+        $.ajax({
+            url:url,
+            data:data,                                                                                                    
+            dataType:"json",                                                                                                
+            type:"POST"
+        }).done(function(result){          
+            $('#mesaj').html(result);      
+        });
+    });
+</script>
+}
+
+
+
+

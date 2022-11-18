@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<body>
+    <div style="background-color:#ff6a00"> 
+        @DateTime.Now.ToShortDateString()
+    </div>
+
+    <br />  
+    <div style="background-color:yellow"> 
+        @for(int i = 1; i <= 10; i++)
+        {
+            @i
+            <br />
+        }
+    </div>
+</body>
+<div class="main">
+		<h1>Welcome sayfası </h1>
+
+</div>

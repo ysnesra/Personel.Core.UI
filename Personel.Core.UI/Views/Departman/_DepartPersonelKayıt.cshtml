@@ -1,0 +1,54 @@
+﻿@using HtmlHelpers.BeginCollectionItemCore
+@using Personel.Core.UI.ViewModels
+@model PersonelEkleViewModel
+
+
+<div class="row" style="border-top:solid 1px blue;border-bottom:solid 1px blue;">
+   
+    <br />
+    @using (Html.BeginCollectionItem("PersonelEkleModels"))      
+    {
+         @Html.HiddenFor(m => m.PersonelId)  
+        <div class="form-group col-lg-4">
+            @Html.LabelFor(m => m.PersonelName )
+            @Html.TextBoxFor(m => m.PersonelName ,new { @class = "form-control" })
+            @Html.ValidationMessageFor(m=>m.PersonelName)        
+        </div>
+        <div class="form-group col-lg-4">
+            @Html.LabelFor(m => m.PersonelSurname)
+            @Html.TextBoxFor(m => m.PersonelSurname,new { @class = "form-control" } )
+            @Html.ValidationMessageFor(m=>m.PersonelSurname)
+        </div>
+        <div class="form-group col-lg-4">
+            @Html.LabelFor(m => m.PersonelSalary)
+            @Html.TextBoxFor(m => m.PersonelSalary,new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.PersonelSalary,"",new{@style="color:green"})
+        </div>
+        <div class="form-group col-lg-4">
+            @Html.LabelFor(m => m.PersonelBirthdate)
+            @Html.TextBoxFor(m => m.PersonelBirthdate, "{0:yyyy-MM-dd}",new { @class = "form-control birth-date", type = "date" })
+            @Html.ValidationMessageFor(m => m.PersonelBirthdate)
+            @Html.ValidationMessageFor(x => x.PersonelBirthdate,"",new{@style="color:green"})
+        </div>
+        <div class="form-group radio col-lg-2 ">
+            <label>
+                @Html.RadioButtonFor(m => m.PersonelGender,true) Erkek
+            </label>
+            <label>
+                @Html.RadioButtonFor(m => m.PersonelGender,false) Kadın
+            </label>
+            @Html.ValidationMessageFor(m => m.PersonelGender)
+        </div>
+        <div class="form-group checkbox col-lg-2">
+            <label>
+                @Html.CheckBoxFor(m => m.PersonelEvliMi) Evliyseniz Seçiniz
+            </label>
+        </div>
+    }
+
+    <div class="form-group checkbox col-lg-2">
+        <a onclick="$(this).closest('.row').remove();" style="cursor:pointer"><img src="https://e7.pngegg.com/pngimages/271/838/png-clipart-computer-icons-delete-icon-white-text.png"  width="24" height="24" ></a>
+    </div>
+</div>
+
+

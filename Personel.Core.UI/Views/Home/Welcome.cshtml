@@ -1,0 +1,16 @@
+﻿@model string   
+
+
+<div class="main">
+		<h1>Welcome sayfası </h1>
+        <p>Gelen Mesaj:</p>
+        <p>ViewData ile gelen mesaj: @ViewData["mesaj"] </p>
+        <p>ViewBag ile gelen mesaj: @ViewBag.Text </p>
+
+      
+        @Html.LabelFor(m=>m,"Not:")                   
+        @Html.TextBoxFor(m=>m,new{@Name="abbb"})       
+        @Html.HiddenFor(m=>m,new{@Name="abbb"})      
+
+         <button type="submit" class="btn btn-success">GÖNDER</button>
+</div>

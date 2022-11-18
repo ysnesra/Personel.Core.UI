@@ -1,0 +1,91 @@
+﻿@using HtmlHelpers.BeginCollectionItemCore
+@using Personel.Core.UI.ViewModels
+@model DepartmanPersonelEkleViewModel
+
+@{
+    ViewBag.Title = "Yeni";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Departman Güncellerken Aynı sayfada Personelde Ekle/Güncelle/Sil</h1>
+
+
+<div id="DepartmanPersonelDüzenlemeiçinMesaj"></div>
+
+@using (Html.BeginForm("DepartmanKayıt", "Departman", FormMethod.Post, new { @id = "departmanPersonelKayitForm" }))
+{
+
+    @Html.HiddenFor(m => m.DepartmanIdm)  
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+
+        @Html.LabelFor(m=>m.DepartmanIsim)
+        @Html.TextBoxFor(m => m.DepartmanIsim, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.DepartmanIsim,"" ,new{@style="color:red"})
+    </div>
+
+    <button type="submit" class="btn btn-success mesajolId2" style="background-color:chocolate">deprtKayıt-Güncelle</button>
+
+    <br />
+    <br />
+    <a class="btn btn-primary forkayıt" type="submit" href="javascript:void(0)" data-kayfor="@Url.Action("PersonelGir","Departman")">Personel Gir</a>
+
+    <div id="personelformiçinayrılanalan">
+        @foreach (var item in Model.PersonelEkleModels)   
+        {                                                
+            @Html.PartialAsync("_DepartPersonelKayıt",item).Result
+        }
+    </div>
+}
+
+<br />
+<br />
+<br />
+
+
+@section Scripts{
+<script>
+    $(document).ready(function () {
+      $('.forkayıt').on("click",function(){                                                                                               
+          var that = $(this);                                      .
+          var url = that.attr("data-kayfor");        
+         
+          $.ajax({
+              url:url,                                                                                                    
+              type:"GET"                                                                                                   
+          }).done(function(result){
+              $('#personelformiçinayrılanalan').append(result);   
+          });
+      });
+       });
+</script>
+
+
+<script>
+     //1.YOL
+    $('#departmanPersonelKayitForm').on("submit",function(e){  
+        e.preventDefault();
+        var that = $(this);
+        var data = that.serialize();            
+        var url = that.attr("action");       
+
+   
+    //2.YOL
+    //$('.mesajolId2').on("click",function(e){   //Butona tıklandığında ; burda bir event olmadığı için form a göndermeliyiz.
+    //    e.preventDefault();
+    //    var form = $('#departmanPersonelKayitForm');  //id si departmanPersonelKayitForm olan formu işaretle
+    //    var data = form.serialize();               //bu formun içindeki dataları tutar
+    //    var url = form.attr("action");          //url si ,gitmesini istediğimiz yere 
+
+        $.ajax({
+            url:url,
+            data:data,                                                                                                      
+            dataType:"json",                                                                                                
+            type:"POST"
+        }).done(function(result){
+            $('#DepartmanPersonelDüzenlemeiçinMesaj').html(result);       /
+        });
+    });
+</script>
+}

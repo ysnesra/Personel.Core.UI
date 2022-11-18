@@ -1,0 +1,64 @@
+﻿@using Personel.Core.UI.Context
+@using Personel.Core.UI.Models;
+@using Personel.Core.UI.ViewModels;
+
+@{
+    ViewData["Title"] = "Personel";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Personel Listesi</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+@model List<PersonelModel>    
+@{
+    ViewBag.Title = "Index";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.ActionLink("Yeni Personel", "Yeni","Personel", null, new {@class="btn btn-success" })
+
+@DateTime.Now
+<button type="button" id="naberBtn">Naber?</button> 
+
+<h2>Personel Listesi</h2>
+<table class=" table table-bordered">
+   
+    <thead>
+        <tr>
+            <th>Name </th>                  
+            <th>Surname </th>
+            <th>DepartmanId</th>
+            <th>Departman</th>
+            <th>Salary </th>
+        
+            <th>Gender </th>
+            <th>EvliMi </th>
+            <th>Güncelle</th>
+            <th>Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var personel in Model)
+        {
+            <tr>
+                <td>@personel.Name </td>
+                <td>@personel.Surname </td>
+                <td>@personel.DepartmanId</td>
+                <td>@personel.DepartmanName</td>
+                <td>@personel.Salary </td>
+             
+                <td>@(personel.Gender == true ? "Erkek" : "Kadın") </td>        
+                <td>@(personel.EvliMi == true ? "Evli" : "Bekar") </td>         
+                <td>@Html.ActionLink("Güncelle", "Update", new { id = personel.Id }, new { @class = "btn btn-success" })  </td>
+                <td>@Html.ActionLink("Sil", "Delete", new { id = personel.Id }, new { @class = "btn btn-danger" })  </td>
+
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+
+

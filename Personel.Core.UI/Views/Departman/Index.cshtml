@@ -1,0 +1,74 @@
+﻿@using Personel.Core.UI.Context
+@using Personel.Core.UI.Models;
+@using Personel.Core.UI.ViewModels
+
+@model List<DepartmanModel>
+
+@{
+    ViewData["Title"] = "Departman";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Departman Listesi</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<a class="btn btn-success" href="/Departman/Yeni" style="margin-bottom:10px">Yeni Departman</a>
+
+<br />
+<a class="btn btn-warning" style="background-color:pink" href="@Url.Action("DepartmanKayıt","Departman")">Kayıt</a>
+
+
+<div id="maaskutusu">   </div>
+
+<table class="table table-bordered" id="tblDepartmanlar" style="margin-top:20px;">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Personeli Var mı?</th>
+            <th>Update</th>
+            <th>Delete</th>
+            <th>Personeller</th>
+            <th>Maaşlar</th>
+
+
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var departman in Model)    
+        {
+            <tr>
+                <td>@departman.Idm</td>
+                <td>@departman.Isim</td>
+                <td>
+                    @if (departman.HasPersonel)  
+                    {
+                        <text>Var</text>
+                    }
+                    else
+                    {
+                        <text>Yok</text>
+                    }
+                </td>
+                <td><a class="btn btn-primary" href="@Url.Action("Update","Departman",new { id = departman.Idm})">Güncelle</a></td>
+
+                <td><a class="btn btn-warning tblDepartmanSil" data-id="@departman.Idm">Sil</a></td>
+    
+                <td>
+                    <a class="btn btn-primary sarisinCocuk" href="javascript:void(0)" data-patates="@Url.Action("PersonelleriListele","Personel",new{id=departman.Idm})">Personelleri Göster</a>
+                </td>
+
+                <td> 
+                    <a class="btn btn-success mavis" href="javascript:void(0)" data-url="@Url.Action("MaasToplam","Personel",new{id=departman.Idm})">Maaşı Göster</a>     
+                </td>
+
+
+            </tr>
+
+        }
+    </tbody>
+</table>
+<div id="personellerinGorunecegiListeKutusu"></div>   
+

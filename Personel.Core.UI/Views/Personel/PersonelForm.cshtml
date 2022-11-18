@@ -1,0 +1,79 @@
+﻿@model Personel.Core.UI.ViewModels.PersonelFormViewModel
+@{
+    ViewBag.Title = "PersonelForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Personel Formu</h2>
+@Html.ValidationSummary()
+
+@using (Html.BeginForm("Kaydet", "Personel", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.Personel.Id)
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(m => m.Personel.Name)
+       
+        <input class="form-control" name="Personel.Name" value="@Model.Personel.Name" type="text"/>
+        @Html.ValidationMessageFor(m => m.Personel.Name)                           
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Personel.Surname)
+        @Html.TextBoxFor(m => m.Personel.Surname, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Personel.Surname)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Personel.DepartmanId)
+        @Html.DropDownListFor(m => m.Personel.DepartmanId, new SelectList(Model.Departmanlar, "Id", "Name"), "Departman Seçiniz", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Personel.DepartmanId)
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Personel.Salary)
+        @Html.TextBoxFor(m => m.Personel.Salary, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Personel.Salary,"",new{@style="color:green"})
+    </div>
+
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.Personel.Birthdate)
+        @Html.TextBoxFor(m => m.Personel.Birthdate, "{0:yyyy-MM-dd}", new { @class = "form-control birth-date", type = "date", onchange = "CheckDateTypeIsValid(this)" })
+        @Html.ValidationMessageFor(m => m.Personel.Birthdate)
+        @Html.ValidationMessageFor(x => x.Personel.Birthdate,"",new{@style="color:green"})
+
+
+    </div>
+    <div class="radio ">
+        <label>
+            @Html.RadioButtonFor(m => m.Personel.Gender, true) Erkek
+        </label>
+        <label>
+            @Html.RadioButtonFor(m => m.Personel.Gender, false) Kadın
+        </label>
+        @Html.ValidationMessageFor(m => m.Personel.Gender)
+    </div>
+
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.Personel.EvliMi) Evliyseniz Seçiniz
+        </label>
+    </div>
+    <button type="submit" class="btn btn-dark">Kaydet</button>
+}
+ 
+@section scripts  
+{
+    <script>
+        $('input[type="date"]').on("change", function () {    
+            var value = $(this).val();                           
+            if (value == '') {
+                $(this).valid("false");
+            }
+            else {
+                $(this).valid();
+            }
+        });
+    </script>
+}
+
+
